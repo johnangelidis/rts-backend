@@ -34,3 +34,6 @@ info:
   app:
     name: ${spring.application.name}
     description: RTS Application backend API
+
+FINNHUB_API_KEY: ${FINNHUB_API_KEY}
+FRONTEND_URL: ${FRONTEND_URL}

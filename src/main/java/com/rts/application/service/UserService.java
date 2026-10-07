@@ -1,13 +1,12 @@
 package com.rts.application.service;
 
-import java.time.LocalDate;
-
+import com.rts.application.entity.User;
+import com.rts.application.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.rts.application.entity.User;
-import com.rts.application.repository.UserRepository;
+import java.time.LocalDate;
 
 @Service
 public class UserService {
@@ -37,10 +36,14 @@ public class UserService {
     }
 
     public static class UsernameAlreadyExistsException extends RuntimeException {
-        public UsernameAlreadyExistsException(String username) { super("Username already exists: " + username); }
+        public UsernameAlreadyExistsException(String username) {
+            super("Username already exists: " + username);
+        }
     }
 
     public static class InvalidCredentialsException extends RuntimeException {
-        public InvalidCredentialsException() { super("Invalid username or password"); }
+        public InvalidCredentialsException() {
+            super("Invalid username or password");
+        }
     }
 }

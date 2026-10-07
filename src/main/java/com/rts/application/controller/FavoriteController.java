@@ -1,35 +1,29 @@
 package com.rts.application.controller;
 
-import java.math.BigDecimal;
-import java.util.List;
-
+import com.rts.application.entity.Favorite;
+import com.rts.application.model.ErrorResponse;
+import com.rts.application.service.FavoriteService;
+import com.rts.application.service.FavoriteService.CreateFavoriteResult;
+import com.rts.application.service.FavoriteService.FavoriteNotFoundException;
+import com.rts.application.service.FavoriteService.UserNotFoundException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.rts.application.entity.Favorite;
-import com.rts.application.service.FavoriteService;
-import com.rts.application.service.FavoriteService.FavoriteNotFoundException;
-import com.rts.application.service.FavoriteService.UserNotFoundException;
-import com.rts.application.service.FavoriteService.CreateFavoriteResult;
+import java.math.BigDecimal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/favorites")
 public class FavoriteController {
     private final FavoriteService favoriteService;
 
-    public FavoriteController(FavoriteService favoriteService) { this.favoriteService = favoriteService; }
+    public FavoriteController(FavoriteService favoriteService) {
+        this.favoriteService = favoriteService;
+    }
 
     @PostMapping
     public ResponseEntity<FavoriteResponse> create(@Valid @RequestBody CreateFavoriteRequest request) {
@@ -64,6 +58,9 @@ public class FavoriteController {
     }
 
     public record CreateFavoriteRequest(@NotNull Integer userId, @NotBlank String ticker,
-            @NotNull BigDecimal openingPrice) { }
-    public record FavoriteResponse(Integer id, Integer userId, String ticker, BigDecimal openingPrice) { }
+                                        @NotNull BigDecimal openingPrice) {
+    }
+
+    public record FavoriteResponse(Integer id, Integer userId, String ticker, BigDecimal openingPrice) {
+    }
 }

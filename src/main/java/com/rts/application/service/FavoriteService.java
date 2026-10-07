@@ -1,16 +1,15 @@
 package com.rts.application.service;
 
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Locale;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.rts.application.entity.Favorite;
 import com.rts.application.entity.User;
 import com.rts.application.repository.FavoriteRepository;
 import com.rts.application.repository.UserRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Locale;
 
 @Service
 public class FavoriteService {
@@ -53,10 +52,14 @@ public class FavoriteService {
     }
 
     public static class UserNotFoundException extends RuntimeException {
-        public UserNotFoundException(Integer userId) { super("User not found: " + userId); }
+        public UserNotFoundException(Integer userId) {
+            super("User not found: " + userId);
+        }
     }
 
     public static class FavoriteNotFoundException extends RuntimeException {
-        public FavoriteNotFoundException(Integer favoriteId) { super("Favorite not found: " + favoriteId); }
+        public FavoriteNotFoundException(Integer favoriteId) {
+            super("Favorite not found: " + favoriteId);
+        }
     }
 }

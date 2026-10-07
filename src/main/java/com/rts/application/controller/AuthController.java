@@ -1,29 +1,26 @@
 package com.rts.application.controller;
 
-import java.time.LocalDate;
-
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.rts.application.entity.User;
+import com.rts.application.model.ErrorResponse;
 import com.rts.application.service.UserService;
 import com.rts.application.service.UserService.InvalidCredentialsException;
 import com.rts.application.service.UserService.UsernameAlreadyExistsException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
     private final UserService userService;
 
-    public AuthController(UserService userService) { this.userService = userService; }
+    public AuthController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping("/signup")
     public ResponseEntity<UserResponse> signUp(@Valid @RequestBody CredentialsRequest request) {
@@ -50,6 +47,9 @@ public class AuthController {
         return new UserResponse(user.getId(), user.getUsername(), user.getCreationDate());
     }
 
-    public record CredentialsRequest(@NotBlank String username, @NotBlank String password) { }
-    public record UserResponse(Integer id, String username, LocalDate creationDate) { }
+    public record CredentialsRequest(@NotBlank String username, @NotBlank String password) {
+    }
+
+    public record UserResponse(Integer id, String username, LocalDate creationDate) {
+    }
 }
